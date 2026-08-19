@@ -1,47 +1,13 @@
-# Espressif 32: development platform for [PlatformIO](https://platformio.org)
+# Adavanced Computing Lab
+ACLab, located at Ho Chi Minh City University of Technology, is a research lab specializing in IoT, embedded systems, robotics, and AI.
 
-[![Build Status](https://github.com/platformio/platform-espressif32/workflows/Examples/badge.svg)](https://github.com/platformio/platform-espressif32/actions)
+## Overview
+- Contains all projects I have done.
+- Each project is organized into separate branches.
 
-ESP32 is a series of low-cost, low-power system on a chip microcontrollers with integrated Wi-Fi and Bluetooth. ESP32 integrates an antenna switch, RF balun, power amplifier, low-noise receive amplifier, filters, and power management modules.
+## Branch Structure
+- Main: Only contains this README file (basic information).
+- Other branches: Contain project in folder.
 
-* [Home](https://registry.platformio.org/platforms/platformio/espressif32) (home page in the PlatformIO Registry)
-* [Documentation](https://docs.platformio.org/page/platforms/espressif32.html) (advanced usage, packages, boards, frameworks, etc.)
-
-# Usage
-
-1. [Install PlatformIO](https://platformio.org)
-2. Create PlatformIO project and configure a platform option in [platformio.ini](https://docs.platformio.org/page/projectconf.html) file:
-
-## Stable version
-
-See `platform` [documentation](https://docs.platformio.org/en/latest/projectconf/sections/env/options/platform/platform.html#projectconf-env-platform) for details.
-
-```ini
-[env:stable]
-; recommended to pin to a version, see https://github.com/platformio/platform-espressif32/releases
-; platform = espressif32 @ ^6.0.1
-platform = espressif32
-board = yolo_uno
-framework = arduino
-monitor_speed = 115200
-
-build_flags =
-    -D ARDUINO_USB_MODE=1
-    -D ARDUINO_USB_CDC_ON_BOOT=1
-
-## Development version
-
-```ini
-[env:development]
-platform = https://github.com/platformio/platform-espressif32.git
-board = yolo_uno
-framework = arduino
-monitor_speed = 115200
-build_flags =
-    -D ARDUINO_USB_MODE=1
-    -D ARDUINO_USB_CDC_ON_BOOT=1
-
-    
-# Configuration
-
-Please navigate to [documentation](https://docs.platformio.org/page/platforms/espressif32.html).
+## Use
+To view the code, you need to checkout a specific branch and click to the folder.
