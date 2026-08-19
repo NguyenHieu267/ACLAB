@@ -1,11 +1,5 @@
 #include "global.h"
 
-#include "task_wifi.h"
-#include "coreiot.h"
-#include "lcd.h"
-#include "led_blinky.h"
-#include "temp_humid.h"
-
 void setup()
 {
   Serial.begin(115200);

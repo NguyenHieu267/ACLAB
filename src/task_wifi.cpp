@@ -1,7 +1,7 @@
 #include "task_wifi.h"
 
-const char* ssid = "ACLAB";
-const char* password = "ACLAB2023";
+const char* ssid = "";
+const char* password = "";
 
 void wifi(void *pvParameters){
     WiFi.begin(ssid, password);     // Connect to wifi - STA mode
