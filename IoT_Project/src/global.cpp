@@ -5,8 +5,11 @@ float glob_humidity = 0;
 
 bool rpc_led = false;
 
-const char* coreIOT_Server = "app.coreiot.io";  
-const char* coreIOT_Token  = "b01WKid1t1mKpr38KeFr";    // ESP_Node_01 
-const int   mqttPort       = 1883;
+char* COREIOT_SERVER = "";
+char* COREIOT_TOKEN = "";
+uint16_t MQTT_PORT = 0;
+
+char* WIFI_SSID = "";
+char* WIFI_PASSWORD = "";
 
 SemaphoreHandle_t xWifiSemaphore = xSemaphoreCreateBinary();

@@ -1,10 +1,7 @@
 #include "task_wifi.h"
 
-const char* ssid = "";
-const char* password = "";
-
 void wifi(void *pvParameters){
-    WiFi.begin(ssid, password);     // Connect to wifi - STA mode
+    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);     // Connect to wifi - STA mode
 
     while(1){
         if (WiFi.status() != WL_CONNECTED) {
