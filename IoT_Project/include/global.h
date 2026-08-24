@@ -28,14 +28,21 @@
 //Variables
 extern float glob_temperature;
 extern float glob_humidity;
-extern char* COREIOT_SERVER;
-extern char* COREIOT_TOKEN;
+
+extern String COREIOT_SERVER;
+extern String COREIOT_TOKEN;
 extern uint16_t MQTT_PORT;
-extern char* WIFI_SSID;
-extern char* WIFI_PASSWORD;
+extern String WIFI_SSID;
+extern String WIFI_PASSWORD;
 
 extern bool rpc_led; 
 
+extern AsyncWebServer server;
+extern AsyncWebSocket ws;
+
+extern void handleWebSocketMessage(String message);
+
 extern SemaphoreHandle_t xWifiSemaphore;
+extern void startAP();
 
 #endif

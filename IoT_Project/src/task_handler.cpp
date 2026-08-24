@@ -38,10 +38,10 @@ void handleWebSocketMessage(String message)
     }
     else if (doc["page"] == "setting")
     {
-        char* WIFI_SSID = doc["value"]["ssid"];
-        char* WIFI_PASS = doc["value"]["password"];
-        char* CORE_IOT_TOKEN = doc["value"]["token"];
-        char* CORE_IOT_SERVER = doc["value"]["server"];
+        String WIFI_SSID = doc["value"]["ssid"].as<String>();
+        String WIFI_PASS = doc["value"]["password"].as<String>();
+        String CORE_IOT_TOKEN = doc["value"]["token"].as<String>();
+        String CORE_IOT_SERVER = doc["value"]["server"].as<String>();
         uint16_t MQTT_PORT = doc["value"]["port"];
 
         Serial.println("Receive config from WebSocket:");

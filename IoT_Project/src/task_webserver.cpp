@@ -29,7 +29,7 @@ void onEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType 
             Serial.printf("WebSocket client #%u disconnected\n", client->id());
             break;
 
-        case WS_EVT_DATA:           // Client press button on web
+        case WS_EVT_DATA:{           // Client press button on web
             AwsFrameInfo *info = (AwsFrameInfo *)arg;
             if (info->opcode == WS_TEXT)
             {
@@ -37,7 +37,7 @@ void onEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType 
                 message += String((char *)data).substring(0, len);
                 handleWebSocketMessage(message); // parseJson(message, true);
             }
-            break; 
+            }break; 
 
         default:break;
     }

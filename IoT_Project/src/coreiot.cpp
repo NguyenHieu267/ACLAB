@@ -8,7 +8,7 @@ void reconnect() {
     String clientId = "ESP32Client-";            // Initialize Client name for ESP32 to connect to MQTT (Core IoT)
     clientId += String(random(0xffff), HEX);     // Ex: ESP32Client-A1B2 
 
-    if(client.connect(clientId.c_str(), COREIOT_TOKEN, NULL)){        // connect(const char *id, const char *user, const char *pass)    -> .c_str()
+    if(client.connect(clientId.c_str(), COREIOT_TOKEN.c_str(), NULL)){        // connect(const char *id, const char *user, const char *pass)    -> .c_str()
       client.subscribe("v1/devices/me/rpc/request/+");      // topic to "Subscribe to server-side RPC"
     }else{
       Serial.print("failed, rc=");
@@ -69,7 +69,7 @@ void setup_coreiot(){
 
   Serial.println(" Connected!");
 
-  client.setServer(COREIOT_SERVER, MQTT_PORT);
+  client.setServer(COREIOT_SERVER.c_str(), MQTT_PORT);
   client.setCallback(callback);
 }
 

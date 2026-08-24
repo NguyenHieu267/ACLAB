@@ -1,5 +1,19 @@
 #include "task_wifi.h"
 
+void startAP()
+{
+    WiFi.mode(WIFI_AP);
+    WiFi.softAP(String(SSID_AP), String(PASS_AP));
+    Serial.println("📡 AP Mode Started!");
+    Serial.print("SSID: ");
+    Serial.println(String(SSID_AP));
+    Serial.print("Password: ");
+    Serial.println(String(PASS_AP));
+    Serial.print("🌐 AP IP: ");
+    Serial.println(WiFi.softAPIP());
+    Serial.println("✅ Connect to this WiFi and open: http://192.168.4.1");
+}
+
 void wifi(void *pvParameters){
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);     // Connect to wifi - STA mode
 

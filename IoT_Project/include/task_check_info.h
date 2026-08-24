@@ -6,6 +6,6 @@
 bool check_info_File(bool check);
 void Load_info_File();
 void Delete_info_File();
-void Save_info_File(char* wifi_ssid, char* wifi_pass, char* coreiot_token, char* coreiot_server, uint16_t mqtt_port)
+void Save_info_File(String wifi_ssid, String wifi_pass, String coreiot_token, String coreiot_server, uint16_t mqtt_port);
 
 #endif

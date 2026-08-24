@@ -3,5 +3,4 @@
 
 #include "global.h"
 
-extern void handleWebSocketMessage(String message);
 #endif

@@ -3,11 +3,4 @@
 
 #include "global.h"
 
-extern AsyncWebServer server;
-extern AsyncWebSocket ws;
-
-void Webserver_stop();
-void Webserver_reconnect();
-void Webserver_sendata(String data);
-
 #endif

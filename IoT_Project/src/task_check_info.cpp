@@ -27,7 +27,7 @@ void Delete_info_File() {
   ESP.restart();
 }
 
-void Save_info_File(char* wifi_ssid, char* wifi_pass, char* coreiot_token, char* coreiot_server, uint16_t mqtt_port)
+void Save_info_File(String wifi_ssid, String wifi_pass, String coreiot_token, String coreiot_server, uint16_t mqtt_port)
 {
   Serial.println(wifi_ssid);
   Serial.println(wifi_pass);
@@ -63,11 +63,8 @@ bool check_info_File(bool check)
     }
     Load_info_File();
   }
-  
-  bool isSsidEmpty = (WIFI_SSID == nullptr || strlen(WIFI_SSID) == 0);
-  bool isPassEmpty = (WIFI_PASSWORD == nullptr || strlen(WIFI_PASSWORD) == 0);
 
-  if (isSsidEmpty && isPassEmpty) {
+  if (WIFI_SSID.isEmpty() && WIFI_PASSWORD.isEmpty()) {
     if (!check) {       // If 1st initialize
       startAP();        // Start AP mode
     }
