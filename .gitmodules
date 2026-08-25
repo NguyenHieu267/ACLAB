@@ -1,0 +1,9 @@
+[submodule "openvla"]
+	path = openvla
+	url = https://github.com/openvla/openvla.git
+[submodule "robosuite"]
+	path = robosuite
+	url = https://github.com/ARISE-Initiative/robosuite.git
+[submodule "LIBERO"]
+	path = LIBERO
+	url = https://github.com/Lifelong-Robot-Learning/LIBERO.git
