@@ -11,6 +11,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <LittleFS.h>
 #include <AsyncTCP.h>
+#include <esp_now.h>
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
