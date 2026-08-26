@@ -3,4 +3,6 @@
 
 #include "global.h"
 
+void handleWebSocketMessage(String message);
+
 #endif

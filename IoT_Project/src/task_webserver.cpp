@@ -73,3 +73,16 @@ void Webserver_reconnect()
     }
     ElegantOTA.loop();
 }
+
+void task_webserver(void *pvParameters)
+{
+    while(1){
+        if( WiFi.getMode() == WIFI_AP || 
+           (WiFi.getMode() == WIFI_STA && WiFi.status() == WL_CONNECTED) ){
+            Webserver_reconnect();
+        }else{
+            Webserver_stop();
+        }
+        vTaskDelay(20);
+    }
+}

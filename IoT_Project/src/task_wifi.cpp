@@ -14,18 +14,46 @@ void startAP()
     Serial.println("✅ Connect to this WiFi and open: http://192.168.4.1");
 }
 
-void wifi(void *pvParameters){
-    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);     // Connect to wifi - STA mode
+void startSTA()
+{
+    if (WIFI_SSID.isEmpty()) return;
 
-    while(1){
-        if (WiFi.status() != WL_CONNECTED) {
+    WiFi.mode(WIFI_STA);
+
+    if (WIFI_PASSWORD.isEmpty()){
+        WiFi.begin(WIFI_SSID.c_str());
+    }else{
+        WiFi.begin(WIFI_SSID.c_str(), WIFI_PASSWORD.c_str());
+    }
+
+    while(WiFi.status() != WL_CONNECTED){
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        Serial.print(".");  
+    }
+    
+    xSemaphoreGive(xWifiSemaphore);
+}
+
+void wifi(void *pvParameters)
+{
+    if (WIFI_SSID.isEmpty()) vTaskDelete(NULL);
+    startSTA();
+    Serial.println("✅ Connect again to WiFi:" + WIFI_SSID);
+    Serial.print("and open: http://" + WiFi.localIP().toString());
+
+    while (1){
+        if (WiFi.status() != WL_CONNECTED) 
+        {
             WiFi.disconnect();
             WiFi.reconnect();
-            while (WiFi.status() != WL_CONNECTED) {      // Check whether wifi is connect or not
+            while (WiFi.status() != WL_CONNECTED) 
+            {
                 vTaskDelay(pdMS_TO_TICKS(1000));
-                Serial.print(".");                       // If NOT -> print "..........."
+                Serial.print("."); 
             }
-            xSemaphoreGive(xWifiSemaphore);              // If YES -> give semaphore to setup_coreiot()
+            Serial.println("✅ Connect again to WiFi:" + WIFI_SSID);
+            Serial.print("and open: http://" + WiFi.localIP().toString());
+            xSemaphoreGive(xWifiSemaphore); 
         }
         vTaskDelay(pdMS_TO_TICKS(5000));
     }

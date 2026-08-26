@@ -3,4 +3,6 @@
 
 #include "global.h"
 
+void task_webserver(void *pvParameters);
+
 #endif
