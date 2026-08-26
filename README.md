@@ -8,6 +8,8 @@ ACLab, located at Ho Chi Minh City University of Technology, is a research lab s
 ## Branch Structure
 - Main: Only contains this README file (basic information).
 - Other branches: Contain project in folder.
+  - [Fusion IoT project](https://github.com/NguyenHieu267/ACLAB/tree/IoT_project/IoT_Project)
+  - [OpenVLA](https://github.com/NguyenHieu267/ACLAB/tree/OpenVLA)
 
 ## Use
 To view the code, you need to checkout a specific branch and click to the folder.
