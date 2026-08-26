@@ -11,7 +11,8 @@ VLA pipeline for 7-DoF Franka robot from inference to simulation and testing usi
 - Os: Ubuntu 24.04.4 LTS
 
 - GPU: 3050 (8GB).
-Note: >3050 is better.
+
+Note: >3050 is better. <br>
       You should install cuda for max performance.
 
 ## Setup Guide
@@ -112,7 +113,13 @@ sed -i "s/'flash_attention_2'/'sdpa'/g" experiments/robot/openvla_utils.py
 ```
 
 ## How to run
-You can find the output video at `~/openvla/rollouts/`
+#### 1) Fine-tuning Camera & Video Duration (Optional)
+Before running the simulation, if you want the output video to be sharper and capture the robot's full range of motion, open the file `experiments/robot/libero/run_libero_eval.py` and modify the following three areas:
+* **Increase resolution:** Locate the `get_libero_env` function (around line 140) and change the setting to `resolution=1024`.
+* **Extend maximum duration:** Find the `max_steps` block (around line 151) and increase `libero_spatial` to 440 and `libero_object` to 560.
+* **Prevent early video termination:** Locate the line `if done:` (around line 207) and add a `#` before the word `break` to disable it.
+  
+#### 2) Make sure you are inside the `openvla` directory and the `libero` conda environment is active. You can find the output video at `~/openvla/rollouts/`.
 ```bash
 python experiments/robot/libero/run_libero_eval.py \
   --model_family openvla \
