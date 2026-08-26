@@ -114,10 +114,10 @@ sed -i "s/'flash_attention_2'/'sdpa'/g" experiments/robot/openvla_utils.py
 
 ## How to run
 #### 1) Fine-tuning Camera & Video Duration (Optional)
-Before running the simulation, if you want the output video to be sharper and capture the robot's full range of motion, open the file `experiments/robot/libero/run_libero_eval.py` and modify the following three areas:
-* **Increase resolution:** Locate the `get_libero_env` function (around line 140) and change the setting to `resolution=1024`.
-* **Extend maximum duration:** Find the `max_steps` block (around line 151) and increase `libero_spatial` to 440 and `libero_object` to 560.
-* **Prevent early video termination:** Locate the line `if done:` (around line 207) and add a `#` before the word `break` to disable it.
+Before running the simulation, if you want to modify the output video, open the file `experiments/robot/libero/run_libero_eval.py` (You can reference my file at [run_libero_eval_copy.py](https://github.com/NguyenHieu267/ACLAB/blob/OpenVLA/run_libero_eval_copy.py)):
+* **Increase resolution:** Find the `get_libero_env` function and change to `resolution=1024`.
+* **Extend maximum duration:** Find the `max_steps` block and increase `libero_spatial` to 440 and `libero_object` to 560.
+* **Prevent early video termination:** Find the line `if done:` and add a `#` before the word `break` to disable it.
   
 #### 2) Make sure you are inside the `openvla` directory and the `libero` conda environment is active. You can find the output video at `~/openvla/rollouts/`.
 ```bash
@@ -128,7 +128,10 @@ python experiments/robot/libero/run_libero_eval.py \
   --center_crop True \
   --load_in_4bit True
 ```
-https://github.com/user-attachments/assets/c50db586-42d2-403f-9dd4-7b27e9de3c15
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/c50db586-42d2-403f-9dd4-7b27e9de3c15" controls width="480"></video>
+  <br>
+</div>
 
 ```bash
 python experiments/robot/libero/run_libero_eval.py \
@@ -139,4 +142,7 @@ python experiments/robot/libero/run_libero_eval.py \
   --load_in_4bit True \
   --num_trials_per_task 2
 ```
-https://github.com/user-attachments/assets/ea5cac65-e06d-4513-ae2b-4df47fb5fca2
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/ea5cac65-e06d-4513-ae2b-4df47fb5fca2" controls width="480"></video>
+  <br>
+</div>
