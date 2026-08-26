@@ -10,7 +10,9 @@ VLA pipeline for 7-DoF Franka robot from inference to simulation and testing usi
 ## Requirements:
 - Os: Ubuntu 24.04.4 LTS
 
-- GPU: 3050 (8GB). Note: >3050 is better 
+- GPU: 3050 (8GB).
+Note: >3050 is better.
+      You should install cuda for max performance.
 
 ## Setup Guide
 ### Setup conda:
@@ -38,6 +40,7 @@ conda activate openvla
 # to find installation instructions that are specific to your compute platform:
 # https://pytorch.org/get-started/locally/
 conda install pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch -c nvidia -y  # UPDATE ME!
+pip install torch torchvision torchaudio --upgrade         # UPDATE for OpenVLA compatibility
 
 # Clone and install the openvla repo
 git clone https://github.com/openvla/openvla.git
@@ -49,6 +52,11 @@ pip install -e .
 pip install packaging ninja
 ninja --version; echo $?  # Verify Ninja --> should return exit code "0"
 pip install "flash-attn==2.5.5" --no-build-isolation
+```
+Remove TensorFlow dependencies from pyproject.toml to bypass strict version checks
+```bash
+sed -i '/tensorflow/d' pyproject.toml
+sed -i '/dlimp/d' pyproject.toml
 ```
 
 ### Download Robotsuite:
@@ -89,25 +97,19 @@ pip install -r requirements.txt
 pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
 ```
 
-sed -i '/tensorflow/d' pyproject.toml
-sed -i '/dlimp/d' pyproject.toml
-pip install -e .
-
+Install Dependency 
+```bash
 pip install tensorflow==2.13.0 --no-deps
-pip install wrapt
-pip install gast
-pip install astunparse
-pip install opt_einsum
-pip install flatbuffers
 pip install git+https://github.com/moojink/dlimp_openvla --no-deps
 pip install tensorflow-datasets==4.9.2 --no-deps
-pip install tree
-pip install dm-tree
-pip install tensorflow-metadata
-pip install tensorflow-graphics
+
+pip install wrapt gast astunparse opt_einsum flatbuffers tree dm-tree tensorflow-metadata tensorflow-graphics
+```
+Optimize for 8GB VRAM
+```bash
 sed -i 's/"flash_attention_2"/"sdpa"/g' experiments/robot/openvla_utils.py
 sed -i "s/'flash_attention_2'/'sdpa'/g" experiments/robot/openvla_utils.py
-
+```
 
 ## How to run
 You can find the output video at `~/openvla/rollouts/`
@@ -119,6 +121,7 @@ python experiments/robot/libero/run_libero_eval.py \
   --center_crop True \
   --load_in_4bit True
 ```
+https://github.com/user-attachments/assets/c50db586-42d2-403f-9dd4-7b27e9de3c15
 
 ```bash
 python experiments/robot/libero/run_libero_eval.py \
@@ -129,3 +132,4 @@ python experiments/robot/libero/run_libero_eval.py \
   --load_in_4bit True \
   --num_trials_per_task 2
 ```
+https://github.com/user-attachments/assets/ea5cac65-e06d-4513-ae2b-4df47fb5fca2
