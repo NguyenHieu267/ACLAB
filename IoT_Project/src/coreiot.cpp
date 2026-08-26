@@ -87,6 +87,8 @@ void coreiot_task(void *pvParameters){
         String payload = "{\"temperature\":" + String(glob_temperature) +  ",\"humidity\":" + String(glob_humidity) + "}";
         client.publish("v1/devices/me/telemetry", payload.c_str());
 
+        Webserver_sendata(payload);
+
         Serial.println("Published payload: " + payload);
         vTaskDelay(5000);  // Publish every 5 seconds
     }

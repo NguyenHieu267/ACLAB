@@ -70,7 +70,7 @@ let gaugeTemp;
 let gaugeHumi;
 
 window.onload = function () {
-    const gaugeTemp = new JustGage({
+    gaugeTemp = new JustGage({
         id: "gauge_temp",
         value: 0,
         min: -10,
@@ -83,7 +83,7 @@ window.onload = function () {
         levelColors: ["#00BCD4", "#4CAF50", "#FFC107", "#F44336"]
     });
 
-    const gaugeHumi = new JustGage({
+    gaugeHumi = new JustGage({
         id: "gauge_humi",
         value: 0,
         min: 0,
@@ -161,7 +161,7 @@ function confirmDelete() {
 }
 
 
-// ==================== SETTINGS FORM (BỔ SUNG) ====================
+// ==================== SETTINGS FORM ====================
 document.getElementById("settingsForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
