@@ -18,8 +18,7 @@ void tearDown() {
 void test_lcd_initialization_and_display() {
     xTaskCreate(lcd_task, "LCDTest", 2048, NULL, 1, &lcdTaskHandle);
     
-    // Đợi LCD khởi tạo và render xong
-    vTaskDelay(pdMS_TO_TICKS(1500));
+    vTaskDelay(pdMS_TO_TICKS(2000));
     TEST_ASSERT_TRUE(true); 
 }
 

@@ -20,15 +20,14 @@ void tearDown() {
 void test_dht20_reads_valid_data(void) {
     xTaskCreate(temp_humid_monitor, "DHTTest", 2048, NULL, 1, &dhtTaskHandle);
     
-    // Đợi 2 giây để task khởi tạo và đọc dữ liệu vòng đầu tiên
+    // Wait 2s for task init and read data
     vTaskDelay(pdMS_TO_TICKS(2000));
     
-    // Kiểm tra xem dữ liệu có hợp lý không (ví dụ: nhiệt độ VN thì nằm khoảng 10-60 độ C)
-    // Nếu biến glob_temperature vẫn là 0.0 hoặc bất thường thì test sẽ fail.
+    // 'glob_temperature' = 0.0 or <10 or > 60 => fail. 
     TEST_ASSERT_GREATER_OR_EQUAL_FLOAT(10.0, glob_temperature);
     TEST_ASSERT_LESS_OR_EQUAL_FLOAT(60.0, glob_temperature);
     
-    // Kiểm tra độ ẩm (0% - 100%)
+    // 'glob_humidity' <0 or >100 => fail
     TEST_ASSERT_GREATER_OR_EQUAL_FLOAT(0.0, glob_humidity);
     TEST_ASSERT_LESS_OR_EQUAL_FLOAT(100.0, glob_humidity);
 }
