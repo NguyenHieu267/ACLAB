@@ -53,8 +53,9 @@ void connnectWSV()
               { request->send(LittleFS, "/script.js", "application/javascript"); });
     server.on("/styles.css", HTTP_GET, [](AsyncWebServerRequest *request)
               { request->send(LittleFS, "/styles.css", "text/css"); });
+              
+    ElegantOTA.begin(&server); 
     server.begin();
-    ElegantOTA.begin(&server);
     webserver_isrunning = true;
 }
 
@@ -71,7 +72,6 @@ void Webserver_reconnect()
     {
         connnectWSV();
     }
-    ElegantOTA.loop();
 }
 
 void task_webserver(void *pvParameters)
@@ -80,6 +80,10 @@ void task_webserver(void *pvParameters)
         if( WiFi.getMode() == WIFI_AP || 
            (WiFi.getMode() == WIFI_STA && WiFi.status() == WL_CONNECTED) ){
             Webserver_reconnect();
+            
+            // Check to update firmware OTA
+            if (webserver_isrunning) ElegantOTA.loop();
+
         }else{
             Webserver_stop();
         }

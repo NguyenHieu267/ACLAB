@@ -72,8 +72,16 @@
     <div id="info" class="section" style="display:none;">
       <header>
         <h1>Device Information</h1>
-        <p>System and firmware details will be displayed here.</p>
+        <p>System and Firmware update OTA will be displayed here.</p>
       </header>
+      
+      <div class="settings-card" style="margin: 0 auto;">
+        <h2><i class="fa-solid fa-cloud-arrow-up"></i> FOTA</h2>
+        <p>Build code on PlatformIO to create <b>firmware.bin</b>,  Then click button below</p>
+        <button class="btn-save" onclick="window.open('/update', '_blank')" style="margin-top: 10px;">
+          <i class="fa-solid fa-upload"></i> Open Firmware Update OTA
+        </button>
+      </div>
     </div>
 
     <!-- SETTING -->
