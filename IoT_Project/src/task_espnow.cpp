@@ -1,43 +1,47 @@
-#include "espnow.h"
+#include "global.h"
 
-uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+uint8_t receiverAddress[] = {0x30, 0xAE, 0xA4, 0x07, 0x0D, 0x64};       // ESP32 Receiver MAC addr
+esp_now_peer_info_t peerInfo;
+struct_message myData;
 
-void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
-    Serial.print("📨 ESP-NOW Nhận: ");
-    for(int i = 0; i < len; i++) {
-        Serial.print((char)incomingData[i]);
-    }
-    Serial.println();
+void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
+    Serial.print("ESP-NOW Send Status: ");
+    Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Success" : "Fail");
 }
 
-void task_espnow(void *pvParameters)
-{
-    while (WiFi.status() != WL_CONNECTED && WiFi.getMode() != WIFI_AP) {
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
+void task_espnow(void *pvParameters) {
+    vTaskDelay(pdMS_TO_TICKS(5000)); 
 
-    Serial.println("⚡ Khởi tạo ESP-NOW...");
+    // Delete task if error
     if (esp_now_init() != ESP_OK) {
-        Serial.println("❌ Lỗi khởi tạo ESP-NOW, tự hủy task!");
-        vTaskDelete(NULL);
+        Serial.println("Error initializing ESP-NOW");
+        vTaskDelete(NULL); 
     }
 
-    esp_now_register_recv_cb(OnDataRecv);
+    esp_now_register_send_cb(OnDataSent);
 
-    esp_now_peer_info_t peerInfo = {};
-    memcpy(peerInfo.peer_addr, broadcastAddress, 6);
-    peerInfo.channel = 0; 
+    memcpy(peerInfo.peer_addr, receiverAddress, 6);
+    peerInfo.channel = 0;  
     peerInfo.encrypt = false;
     
-    if (esp_now_add_peer(&peerInfo) != ESP_OK){
-        Serial.println("❌ Lỗi thêm Peer ESP-NOW");
+    if (esp_now_add_peer(&peerInfo) != ESP_OK) {
+        Serial.println("Failed to add peer");
     }
 
-    while (1)
-    {
-        String msg = "T:" + String(glob_temperature);
-        esp_now_send(broadcastAddress, (uint8_t *)msg.c_str(), msg.length());
+    bool last_rpc_led_state = !rpc_led;
+
+    while(1) {
+        // Check if rpc_led change status
+        if (rpc_led != last_rpc_led_state) {
+            last_rpc_led_state = rpc_led;
+            myData.led_state = rpc_led;
+            
+            esp_err_t result = esp_now_send(receiverAddress, (uint8_t *) &myData, sizeof(myData));
+            if (result == ESP_OK) {
+                Serial.printf("Sent LED State: %d\n", myData.led_state);
+            }
+        }
         
-        vTaskDelay(pdMS_TO_TICKS(10000));
+        vTaskDelay(pdMS_TO_TICKS(100));
     }
 }

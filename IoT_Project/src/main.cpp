@@ -12,6 +12,7 @@ void setup()
   xTaskCreate(wifi, "Task Wifi", 8192, NULL, 2, NULL);
   xTaskCreate(coreiot_task, "Task CoreIoT", 8192, NULL, 2, NULL);
   xTaskCreate(task_webserver, "Task Webserver", 4096, NULL, 2, NULL);
+  xTaskCreate(task_espnow, "Task ESPNOW", 4096, NULL, 2, NULL);
 }
 
 void loop()
