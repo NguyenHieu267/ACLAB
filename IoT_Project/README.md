@@ -17,7 +17,7 @@ AIoT project is the ACLAB's entrance test. This project simulates an AIoT (AI + 
 - Edge Impulse account (if you want to retrain model).
 
 ## Edge Impulse 
-You can find my data store at `dataset` folder
+You can find my data for training AI store at `dataset` folder
 
 ## Firmware OTA
 You can update firmware through USB port or using file .bin and update OTA (on ESP webserver)
