@@ -14,6 +14,13 @@ AIoT project is the ACLAB's entrance test. This project simulates an AIoT (AI + 
 - VS Code with the PlatformIO IDE extension.
 - 2x ESP32 boards: Receiver and Sender.
 - CoreIoT account.
+- Edge Impulse account (if you want to retrain model).
+
+## Edge Impulse 
+You can find my data store at `dataset` folder
+
+## Firmware OTA
+You can update firmware through USB port or using file .bin and update OTA (on ESP webserver)
 
 ## How to run
 ```bash

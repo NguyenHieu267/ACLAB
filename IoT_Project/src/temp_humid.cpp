@@ -35,13 +35,13 @@ void temp_humid_monitor(void *parameters){
                     
                     if (result.classification[1].value > 0.6) {
                         current_delay = 1000;  
-                        Serial.println("-> Trang thai: BIEN DONG. Chuyen chu ky doc thanh 1s.");
+                        Serial.println("->Volatile - read data after 1s");
                     } else {
                         current_delay = 10000; 
-                        Serial.println("-> Trang thai: ON DINH. Chuyen chu ky doc thanh 10s.");
+                        Serial.println("Stable - read data after 10s");
                     }
                 } else {
-                    Serial.printf("Loi khi chay AI: %d\n", res);
+                    Serial.printf("Error: %d\n", res);
                 }
             }
             
